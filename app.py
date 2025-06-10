@@ -16,7 +16,8 @@ st.set_page_config(
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
-# Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus.
+# Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus,
+# inklusive spezifischem GitHub-Icon.
 hide_streamlit_ui = """
 <style>
 #MainMenu { visibility: hidden !important; } /* Blendet das Hamburger-Menü-Symbol aus */
@@ -24,6 +25,7 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 [data-testid="stAppFooter"] { display: none !important; } /* Spezifisches Ausblenden des Streamlit App Footers mit höchster Priorität */
 [data-testid="stToolbar"] { visibility: hidden !important; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
 [data-testid="stHeader"] { visibility: hidden !important; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
+#GithubIcon { display: none !important; } /* Zielt direkt auf ein Element mit der ID "GithubIcon" ab */
 </style>
 """
 st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
