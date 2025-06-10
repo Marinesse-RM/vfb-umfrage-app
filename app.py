@@ -125,7 +125,7 @@ if st.session_state.logged_in_admin or \
                 st.stop() # <-- Füge diese Zeile hinzu
 
         st.caption("Umfrage Link für QR Code:")
-        survey_url_base = f"http://localhost:8501/?view=survey_form"
+        survey_url_base = f"https://vfb-cashback.streamlit.app/?view=survey_form"
         st.code(survey_url_base)
         st.markdown("**(Bitte URL an deine Hosting-Umgebung anpassen!)**")
 else:
@@ -208,7 +208,7 @@ elif st.session_state.page == 'survey_form':
                 st.success("Ihr Betrag wurde erfolgreich erfasst! Sie werden weitergeleitet...")
                 
                 # Basis-URL (anpassen, wenn gehostet!)
-                base_url = "http://localhost:8501" 
+                base_url = "https://vfb-cashback.streamlit.app/" 
                 redirect_url = f"{base_url}/?view=thank_you_with_contact_option&entry_id={entry_id}"
                 
                 # Dies ist der entscheidende Befehl: Erzwingt einen Browser-Redirect
@@ -271,7 +271,7 @@ elif st.session_state.page == 'thank_you_with_contact_option':
                     st.session_state.last_survey_entry_id = None # ID löschen
                     
                     # --- WICHTIG: Direkter HTML-Redirect zur finalen Danke-Seite ---
-                    base_url = "http://localhost:8501" # ANPASSEN, WENN GEHOSTET!
+                    base_url = "https://vfb-cashback.streamlit.app" # ANPASSEN, WENN GEHOSTET!
                     redirect_url = f"{base_url}/?view=thank_you" # Weiterleitung zur finalen Danke-Seite
 
                     st.markdown(f'<meta http-equiv="refresh" content="0;url={redirect_url}">', unsafe_allow_html=True)
