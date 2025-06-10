@@ -16,15 +16,14 @@ st.set_page_config(
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
-# Blendet ALLE Streamlit UI-Elemente wie Hamburger-Menü, Footer (Desktop/Mobil),
-# Entwickler-Toolbar, "Fork"-Button und GitHub-Symbol aus.
+# Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus.
 hide_streamlit_ui = """
 <style>
-#MainMenu { visibility: hidden; } /* Blendet das Hamburger-Menü-Symbol aus */
-footer { display: none; } /* Versteckt den allgemeinen Footer (sollte den "Made with Streamlit" Text erfassen) */
-[data-testid="stAppFooter"] { display: none; } /* Spezifisches Ausblenden des Streamlit App Footers (oft für mobile Ansicht) */
-[data-testid="stToolbar"] { visibility: hidden; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
-[data-testid="stHeader"] { visibility: hidden; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
+#MainMenu { visibility: hidden !important; } /* Blendet das Hamburger-Menü-Symbol aus */
+footer { display: none !important; } /* Versteckt den allgemeinen Footer mit höchster Priorität */
+[data-testid="stAppFooter"] { display: none !important; } /* Spezifisches Ausblenden des Streamlit App Footers mit höchster Priorität */
+[data-testid="stToolbar"] { visibility: hidden !important; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
+[data-testid="stHeader"] { visibility: hidden !important; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
 </style>
 """
 st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
