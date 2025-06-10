@@ -15,6 +15,23 @@ create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
 # WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
 ADMIN_PASSWORD = "vfbvam"
 
+# --- Streamlit App Konfiguration ---
+st.set_page_config(
+    layout="wide",
+    page_title="Versicherungsvolumen Umfrage",
+    initial_sidebar_state="expanded" # Sidebar initial ausklappen (wird durch Logik gesteuert)
+)
+
+# --- CSS zur Anpassung der Streamlit UI ---
+# Blendet das Hamburger-Menü und den "Made with Streamlit" Fußzeilentext aus
+hide_streamlit_ui = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
+
 # --- Session State Initialisierung ---
 # Diese Variablen werden nur einmalig gesetzt, wenn die Streamlit-Session startet.
 if 'page' not in st.session_state:
