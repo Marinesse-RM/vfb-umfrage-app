@@ -93,12 +93,6 @@ elif st.session_state.page in ["survey_form", "thank_you_with_contact_option", "
 elif not st.session_state.logged_in_admin:
     st.session_state.page = 'presenter_view'
 
-# --- Streamlit App Konfiguration ---
-st.set_page_config(
-    layout="wide",
-    page_title="Versicherungsvolumen Umfrage",
-    initial_sidebar_state="expanded" # Sidebar initial ausklappen
-)
 
 # --- Hilfsfunktion zum Generieren von QR-Codes ---
 def generate_qr_code_base64(url):
