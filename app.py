@@ -8,13 +8,6 @@ from database import create_db_tables, get_db, add_survey_entry, update_survey_e
                      get_all_contact_entries, get_all_volume_entries
 from streamlit_autorefresh import st_autorefresh
 
-# --- Initialisierung der Datenbank ---
-create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
-
-# --- Passwort für den Admin-Bereich ---
-# WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
-ADMIN_PASSWORD = "vfbvam"
-
 # --- Streamlit App Konfiguration ---
 st.set_page_config(
     layout="wide",
@@ -31,6 +24,14 @@ footer {visibility: hidden;}
 </style>
 """
 st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
+
+# --- Initialisierung der Datenbank ---
+create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
+
+# --- Passwort für den Admin-Bereich ---
+# WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
+ADMIN_PASSWORD = "vfbvam"
+
 
 # --- Session State Initialisierung ---
 # Diese Variablen werden nur einmalig gesetzt, wenn die Streamlit-Session startet.
