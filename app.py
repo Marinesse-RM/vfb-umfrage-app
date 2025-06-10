@@ -205,8 +205,8 @@ elif st.session_state.page == 'survey_form':
         volume_input = st.number_input(
             "Geschätztes Volumen in Euro (€)",
             min_value=0.0,
-            value=100000.0, # Startwert
-            step=10000.0,
+            value=0.0, # Startwert
+            step=1000.0,
             format="%.2f",
             key="volume_input"
         )
