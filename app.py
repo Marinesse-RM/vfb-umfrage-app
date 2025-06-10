@@ -16,14 +16,18 @@ st.set_page_config(
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
-# Blendet das Hamburger-Menü und den "Made with Streamlit" Fußzeilentext aus
+# Blendet ALLE Streamlit UI-Elemente wie Hamburger-Menü, Footer,
+# Entwickler-Toolbar, "Fork"-Button und GitHub-Symbol aus.
 hide_streamlit_ui = """
 <style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
+#MainMenu {visibility: hidden;} /* Blendet das Hamburger-Menü-Symbol aus */
+footer {visibility: hidden;} /* Blendet den "Made with Streamlit" Fußzeilentext aus */
+[data-testid="stToolbar"] {visibility: hidden;} /* Blendet die obere Leiste (inkl. "Manage app") aus */
+[data-testid="stHeader"] {visibility: hidden;} /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
 </style>
 """
 st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
+
 
 # --- Initialisierung der Datenbank ---
 create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
