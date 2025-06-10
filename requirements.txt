@@ -1,0 +1,5 @@
+streamlit==1.45.1
+sqlalchemy==2.0.41
+pandas==2.3.0
+qrcode==8.2
+streamlit-autorefresh==1.0.1
