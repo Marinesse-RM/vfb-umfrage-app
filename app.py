@@ -39,10 +39,14 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 
 /* Für st.title oder # Titel */
-h1 {
-    font-size: 32px;             
-         
+
+.st-emotion-cache-16tyu1 h1 {
+    font-size: 30px;
+    font-weight: 700;
+    padding: 1.25rem 0px 1rem;
 }
+
+
 
 /* --- Für allgemeinen Text (falls noch nicht vorhanden) --- */
 body {
