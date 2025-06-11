@@ -32,7 +32,7 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 /* Für st.title oder # Titel */
 h1 {
     font-family: 'Figtree'; 
-    font-weight: extrabold:
+    font-weight: extrabold;
     color: #3c3c3b;               
     font-size: 24px;              
          
