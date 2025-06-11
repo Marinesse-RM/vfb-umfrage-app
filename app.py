@@ -27,20 +27,25 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 [data-testid="stHeader"] { visibility: hidden !important; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
 #GithubIcon { display: none !important; } /* Zielt direkt auf ein Element mit der ID "GithubIcon" ab */
 
+/* --- Für Container --- */
+
+.st-emotion-cache-zy6yx3 {
+    width: 100%;
+    padding: 2rem 1rem 10rem;
+    max-width: initial;
+    min-width: auto;
+}
+
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 
 /* Für st.title oder # Titel */
 h1 {
-    font-family: 'Figtree'; 
-    font-weight: extrabold;
-    color: #3c3c3b;               
-    font-size: 24px;              
+    font-size: 32px;             
          
 }
 
 /* --- Für allgemeinen Text (falls noch nicht vorhanden) --- */
 body {
-    font-family: 'Figtree'; 
     font-size: 14px;
     color: #3c3c3b;
 }
