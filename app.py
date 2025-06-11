@@ -206,7 +206,7 @@ if st.session_state.page == 'presenter_view':
                 current_total = get_current_total_sum(db_session)
                 total_sum_placeholder.metric(
                     label="Aktuelles geschätztes Volumen",
-                    value=f"{current_total:,.2f} €",
+                    value=f"{current_total:,2f} €",
                     delta_color="off" # Keine Delta-Anzeige
                 )
             finally:
