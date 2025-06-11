@@ -60,7 +60,7 @@ create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
 
 # --- Passwort für den Admin-Bereich ---
 # WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
-ADMIN_PASSWORD = "vfbvam"
+ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
 
 
 # --- Session State Initialisierung ---
