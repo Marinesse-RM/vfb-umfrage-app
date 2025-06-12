@@ -8,6 +8,30 @@ from database import create_db_tables, get_db, add_survey_entry, update_survey_e
                      get_all_contact_entries, get_all_volume_entries
 from streamlit_autorefresh import st_autorefresh
 
+def get_image_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Logo als Base64-String hochladen
+# Stelle sicher, dass der Pfad zu deinem Logo korrekt ist (z.B. "images/logo.png")
+LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
+# --- ENDE NEUER BLOCK ---
+
+# NEU: Locale für deutsche Formatierung setzen!
+# WICHTIG: Die genaue String-Bezeichnung hängt vom Betriebssystem ab.
+# Probiere 'de_DE.UTF-8' oder 'de_DE' oder 'German_Germany.1252' (für Windows)
+try:
+    locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
+except locale.Error:
+    try:
+        locale.setlocale(locale.LC_ALL, 'de_DE')
+    except locale.Error:
+        try:
+            locale.setlocale(locale.LC_ALL, 'German_Germany.1252')
+        except locale.Error:
+            st.warning("Konnte keine deutsche Locale einstellen. Zahlenformatierung könnte abweichen.")
+
+
 # --- Streamlit App Konfiguration ---
 st.set_page_config(
     layout="wide",
@@ -26,6 +50,16 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 [data-testid="stToolbar"] { visibility: hidden !important; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
 [data-testid="stHeader"] { visibility: hidden !important; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
 #GithubIcon { display: none !important; } /* Zielt direkt auf ein Element mit der ID "GithubIcon" ab */
+
+/* --- NEU: CSS für das Logo in der oberen rechten Ecke --- */
+#app_logo {{ /* Selektor für das Logo-Bild */
+    position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
+    top: 20px; /* 20 Pixel Abstand vom oberen Rand */
+    right: 20px; /* 20 Pixel Abstand vom rechten Rand */
+    width: 150px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
+    height: auto; /* Höhe automatisch anpassen, um Proportionen zu erhalten */
+    z-index: 1000; /* Stellt sicher, dass das Logo über anderen Elementen liegt */
+}}
 
 /* --- Für Container --- */
 
