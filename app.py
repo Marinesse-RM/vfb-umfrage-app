@@ -49,12 +49,12 @@ st.set_page_config(
 # inklusive spezifischem GitHub-Icon.
 hide_streamlit_ui_and_logo_css = f"""
 <style>
-#MainMenu {{ visibility: hidden !important; }}/* Blendet das Hamburger-Menü-Symbol aus */
-footer { display: none !important; } /* Versteckt den allgemeinen Footer mit höchster Priorität */
-[data-testid="stAppFooter"] { display: none !important; } /* Spezifisches Ausblenden des Streamlit App Footers mit höchster Priorität */
-[data-testid="stToolbar"] { visibility: hidden !important; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
-[data-testid="stHeader"] { visibility: hidden !important; } /* Blendet den gesamten Header-Bereich (inkl. Fork/GitHub-Icon) aus */
-#GithubIcon { display: none !important; } /* Zielt direkt auf ein Element mit der ID "GithubIcon" ab */
+#MainMenu {{ visibility: hidden !important; }}
+footer {{ display: none !important; }}
+[data-testid="stAppFooter"] {{ display: none !important; }}
+[data-testid="stToolbar"] {{ visibility: hidden !important; }}
+[data-testid="stHeader"] {{ visibility: hidden !important; }}
+#GithubIcon {{ display: none !important; }}
 
 /* --- NEU: CSS für das Logo in der oberen rechten Ecke --- */
 #app_logo {{ /* Selektor für das Logo-Bild */
@@ -67,37 +67,25 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
 }}
 
 /* --- Für Container --- */
-
-.st-emotion-cache-zy6yx3 {
+.st-emotion-cache-zy6yx3 {{
     width: 100%;
     padding: 2rem 1rem 10rem;
     max-width: initial;
     min-width: auto;
-}
-
-
-
+}}
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
-
-/* Für st.title oder # Titel */
-
-.st-emotion-cache-16tyu1 h1 {
+.st-emotion-cache-16tyu1 h1 {{
     font-size: 30px;
     font-weight: 700;
     padding: 1.25rem 0px 1rem;
-}
-
-
+}}
 
 /* --- Für allgemeinen Text (falls noch nicht vorhanden) --- */
-body {
+body {{
     font-size: 14px;
     color: #3c3c3b;
-}
-
-
-
+}}
 
 </style>
 """
