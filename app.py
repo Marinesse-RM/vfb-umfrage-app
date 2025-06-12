@@ -81,6 +81,7 @@ footer {{ display: none !important; }}
     padding: 2rem 1rem 10rem;
     max-width: initial;
     min-width: auto;
+    text-color: #3c3c3b;
     background-color: white;
 }}
 
@@ -100,8 +101,7 @@ footer {{ display: none !important; }}
 }}
 
 /* --- Für allgemeinen Text (falls noch nicht vorhanden) --- */
-body {{
-    font-size: 14px;
+.st-emotion-cache-16tyu1 p {{
     color: #3c3c3b;
 }}
 
