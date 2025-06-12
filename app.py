@@ -7,16 +7,34 @@ from database import create_db_tables, get_db, add_survey_entry, update_survey_e
                      get_current_total_sum, update_total_sum, reset_total_sum, \
                      get_all_contact_entries, get_all_volume_entries
 from streamlit_autorefresh import st_autorefresh
+import locale # NEU: Diesen Import hinzufügen!
 
-def get_image_base64(image_path):
-    with open(image_path, "rb") as img_file:
-        return base64.b64encode(img_file.read()).decode()
-
-# Logo als Base64-String hochladen
-# Stelle sicher, dass der Pfad zu deinem Logo korrekt ist (z.B. "images/logo.png")
-LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
+# --- NEUER BLOCK: Locale für europäische Zahlenformatierung setzen ---
+try:
+    locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
+except locale.Error:
+    try:
+        locale.setlocale(locale.LC_ALL, 'de_DE')
+    except locale.Error:
+        try:
+            locale.setlocale(locale.LC_ALL, 'German_Germany.1252')
+        except locale.Error:
+            pass # Konnte keine deutsche Locale einstellen. Zahlenformatierung könnte abweichen.
 # --- ENDE NEUER BLOCK ---
 
+# --- Funktion zum Laden von Bildern als Base64 ---
+def get_image_base64(image_path):
+    # Sicherstellen, dass die Datei existiert, bevor versucht wird, sie zu öffnen
+    try:
+        with open(image_path, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        st.error(f"Fehler: Bilddatei nicht gefunden unter {image_path}. Bitte Pfad prüfen.")
+        return "" # Leeren String zurückgeben, um Fehler zu vermeiden
+
+# Logo als Base64-String laden
+# Stelle sicher, dass der Pfad zu deinem Logo korrekt ist (z.B. "images/vfb_vam_logo.png")
+LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
 
 
 # --- Streamlit App Konfiguration ---
@@ -83,7 +101,14 @@ body {
 
 </style>
 """
-st.markdown(hide_streamlit_ui, unsafe_allow_html=True)
+
+# --- NEU: HTML-Tag für das Logo erstellen ---
+# Dies wird ein<img>-Tag mit der Base64-Daten-URL und der ID "app_logo".
+logo_html_tag = f'<img id="app_logo" src="data:image/png;base64,{LOGO_BASE64}">'
+
+# --- NEU: Beides zusammen in Streamlit rendern ---
+# Hier wird der CSS-Style-Block UND das Logo-Bild-Tag in die Seite eingefügt.
+st.markdown(hide_streamlit_ui_and_logo_css + logo_html_tag, unsafe_allow_html=True)
 
 
 # --- Initialisierung der Datenbank ---
