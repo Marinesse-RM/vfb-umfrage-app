@@ -69,7 +69,7 @@ footer {{ display: none !important; }}
 /* --- NEU: Media Query für mobile Darstellung (bis 640px Breite) --- */
 @media screen and (max-width: 640px) {{
     #app_logo {{
-        width: 80%; /* Kleinere Breite für mobile Geräte */
+        width: 50%; /* Kleinere Breite für mobile Geräte */
         top: 10px;   /* Weniger Abstand vom oberen Rand auf Mobilgeräten */
         right: 10px; /* Weniger Abstand vom rechten Rand auf Mobilgeräten */
     }}
