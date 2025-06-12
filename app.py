@@ -302,30 +302,30 @@ if st.session_state.page == 'presenter_view':
                     value=f"{current_total:,.2f} €",
                     delta_color="off" # Keine Delta-Anzeige
                 )
-                ## NEU: 10% der Summe berechnen und formatieren
+                # NEU: 10% der Summe berechnen und formatieren
                 percentage_sum = current_total * 0.10
                 formatted_percentage_sum = locale.format_string("%.2f", percentage_sum, True)
 
-                ## NEU: HTML für die 10%-Anzeige mit Hintergrundbild
+                # NEU: HTML für die 10%-Anzeige mit Hintergrundbild
                 ten_percent_html = f"""
                 <div style="
                     background-image: url('data:image/png;base64,{BACKGROUND_10_PERCENT_IMG_BASE64}');
-                    background-size: cover; /* Bild so skalieren, dass es den gesamten Bereich abdeckt */
-                    background-position: center; /* Bild im Zentrum des Bereichs positionieren */
-                    background-repeat: no-repeat; /* Bild nicht wiederholen */
-                    height: 150px; /* Höhe des Kastens anpassen, je nach Wunsch */
-                    width: 100%; /* Nimmt die volle Breite der Spalte ein */
-                    display: flex; /* Flexbox für Zentrierung des Inhalts */
-                    flex-direction: column; /* Inhalt vertikal anordnen */
-                    justify-content: center; /* Inhalt vertikal zentrieren */
-                    align-items: center; /* Inhalt horizontal zentrieren */
-                    border-radius: 15px; /* Abgerundete Ecken */
-                    margin-top: 20px; /* Abstand zur oberen Summe */
-                    box-shadow: 5px 5px 15px rgba(0,0,0,0.3); /* Etwas stärkerer Schatten */
-                    color: white; /* Standard-Textfarbe (passt gut zu dunklen Hintergründen) */
-                    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Text-Schatten für bessere Lesbarkeit */
-                    text-align: center; /* Textinhalt horizontal zentrieren */
-                    padding: 10px; /* Innerer Abstand */
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 150px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 15px;
+                    margin-top: 20px;
+                    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+                    color: white;
+                    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+                    text-align: center;
+                    padding: 10px;
                 ">
                     <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
                         Davon 10% geschätzter Cashback Wert:
@@ -336,7 +336,7 @@ if st.session_state.page == 'presenter_view':
                 </div>
                 """
                 ten_percent_sum_placeholder.markdown(ten_percent_html, unsafe_allow_html=True)
-          
+
             finally:
                 db_session.close()
 
