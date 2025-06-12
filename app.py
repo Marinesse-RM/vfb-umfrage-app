@@ -36,32 +36,7 @@ footer { display: none !important; } /* Versteckt den allgemeinen Footer mit hö
     min-width: auto;
 }
 
-/* --- NEU: Styling für den Metrik-Container (Gesamtvolumen) --- */
-[data-testid="stMetric"] {{
-    background-color: #F0F8FF; /* Ein sehr helles Blau für den Hintergrund */
-    border: 2px solid #0056b3; /* Dunkelblauer Rahmen */
-    border-radius: 15px; /* Abgerundete Ecken */
-    padding: 30px 20px; /* Innenabstand oben/unten und links/rechts */
-    margin-top: 30px; /* Abstand nach oben zum vorherigen Inhalt */
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.2); /* Leichter Schatten */
-    text-align: center; /* Zentriert den Inhalt im Kasten */
-}}
 
-/* --- NEU: Styling für den Wert der Metrik (die eigentliche Zahl) --- */
-[data-testid="stMetricValue"] {{
-    font-size: 4.5em !important; /* Macht die Zahl sehr groß */
-    font-weight: bold; /* Fettgedruckt */
-    color: #0056b3 !important; /* Dunkelblaue Textfarbe */
-    margin-top: 10px; /* Abstand zum Label darüber */
-    margin-bottom: 10px; /* Abstand zum Label darunter */
-}}
-
-/* --- NEU: Styling für das Label der Metrik (z.B. "Aktuelles geschätztes Volumen") --- */
-[data-testid="stMetricLabel"] > div {{ /* Target the div inside the label */
-    font-size: 1.4em; /* Etwas größere Schrift für das Label */
-    color: #333333; /* Dunklerer Text für bessere Lesbarkeit */
-    font-weight: 600; /* Etwas fetter als normal */
-}}
 
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
