@@ -282,24 +282,30 @@ if st.session_state.page == 'presenter_view':
     col1, col2 = st.columns([1, 2]) # Eine Spalte für QR, eine für Summe
 
     with col1:
-        st.subheader("Umfrage-Teilnahme")
+        st.subheader("Umfrage-Teilnahme") # Dieser Subheader gehört zur Spalte 1 (QR-Code)
         # Generiere QR-Code für die Umfrage-URL
         qr_img_data = generate_qr_code_base64(survey_url_base)
         st.image(f"data:image/png;base64,{qr_img_data}", caption="[Image of QR Code]")
         st.markdown(f"Alternativ: [Direkt zum Formular]({survey_url_base})")
 
-    with col2:
-        st.subheader("Live-Summe des Versicherungsvolumens")
+    with col2: # ALLES, WAS DIE SUMMEN ANZEIGT, GEHÖRT HIERHER!
+        st.subheader("Live-Summe des Versicherungsvolumens") # Dieser Subheader gehört zur Spalte 2
+        # HIER MÜSSEN DIE DEFINITIONEN DER PLATZHALTER SEIN:
         # Placeholder für die Live-Summe
         total_sum_placeholder = st.empty()
+        # Placeholder für die 10%-Summe
+        ten_percent_sum_placeholder = st.empty()
 
+        # Erst JETZT kommt die Definition deiner Funktion (immer noch innerhalb von 'with col2:')
         def update_total_sum_display():
             db_session = next(get_db())
             try:
                 current_total = get_current_total_sum(db_session)
+                # Formatiere die Live-Summe
+                formatted_total = locale.format_string("%.2f", current_total, True)
                 total_sum_placeholder.metric(
                     label="Aktuelles geschätztes Volumen",
-                    value=f"{current_total:,.2f} €",
+                    value=f"{formatted_total} €",
                     delta_color="off" # Keine Delta-Anzeige
                 )
                 # NEU: 10% der Summe berechnen und formatieren
