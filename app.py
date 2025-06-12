@@ -183,6 +183,7 @@ else:
 
 # --- Presenter View (für die Präsentation) ---
 if st.session_state.page == 'presenter_view':
+    st.image("images/vfb_vam_logo.png", width=200) # Passe den Pfad und die Breite an
     st.title("📊 LIVE RECHENBEISPIEL - VfB CASHBACK AKTION ")
     st.write("Scannen Sie den QR-Code, um an der unverbindlichen Umfrage teilzunehmen!")
 
