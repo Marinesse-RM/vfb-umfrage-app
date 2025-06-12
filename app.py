@@ -49,7 +49,7 @@ st.set_page_config(
 # inklusive spezifischem GitHub-Icon.
 hide_streamlit_ui_and_logo_css = f"""
 <style>
-#MainMenu { visibility: hidden !important; } /* Blendet das Hamburger-Menü-Symbol aus */
+#MainMenu {{ visibility: hidden !important; }}/* Blendet das Hamburger-Menü-Symbol aus */
 footer { display: none !important; } /* Versteckt den allgemeinen Footer mit höchster Priorität */
 [data-testid="stAppFooter"] { display: none !important; } /* Spezifisches Ausblenden des Streamlit App Footers mit höchster Priorität */
 [data-testid="stToolbar"] { visibility: hidden !important; } /* Blendet die obere Leiste (inkl. "Manage app") aus */
