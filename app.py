@@ -17,19 +17,6 @@ def get_image_base64(image_path):
 LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
 # --- ENDE NEUER BLOCK ---
 
-# NEU: Locale für deutsche Formatierung setzen!
-# WICHTIG: Die genaue String-Bezeichnung hängt vom Betriebssystem ab.
-# Probiere 'de_DE.UTF-8' oder 'de_DE' oder 'German_Germany.1252' (für Windows)
-try:
-    locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
-except locale.Error:
-    try:
-        locale.setlocale(locale.LC_ALL, 'de_DE')
-    except locale.Error:
-        try:
-            locale.setlocale(locale.LC_ALL, 'German_Germany.1252')
-        except locale.Error:
-            st.warning("Konnte keine deutsche Locale einstellen. Zahlenformatierung könnte abweichen.")
 
 
 # --- Streamlit App Konfiguration ---
