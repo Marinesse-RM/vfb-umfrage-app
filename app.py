@@ -47,7 +47,7 @@ st.set_page_config(
 # --- CSS zur Anpassung der Streamlit UI ---
 # Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus,
 # inklusive spezifischem GitHub-Icon.
-hide_streamlit_ui = """
+hide_streamlit_ui_and_logo_css = f"""
 <style>
 #MainMenu { visibility: hidden !important; } /* Blendet das Hamburger-Menü-Symbol aus */
 footer { display: none !important; } /* Versteckt den allgemeinen Footer mit höchster Priorität */
@@ -105,9 +105,6 @@ body {
 # --- NEU: HTML-Tag für das Logo erstellen ---
 # Dies wird ein<img>-Tag mit der Base64-Daten-URL und der ID "app_logo".
 logo_html_tag = f'<img id="app_logo" src="data:image/png;base64,{LOGO_BASE64}">'
-
-# --- NEU: Beides zusammen in Streamlit rendern ---
-# Hier wird der CSS-Style-Block UND das Logo-Bild-Tag in die Seite eingefügt.
 st.markdown(hide_streamlit_ui_and_logo_css + logo_html_tag, unsafe_allow_html=True)
 
 
