@@ -85,6 +85,20 @@ footer {{ display: none !important; }}
     background-color: white;
 }}
 
+/* -- Für Auto Refresh Darstellung -- */
+.stAlert {{
+    margin-right: 40%;
+}}
+<style>
+
+/* -- Summendarstellung -- */
+.st-emotion-cache-p38tq {{
+    font-size: 60px;
+    color: #202f58;
+    font-weight: bold;
+    padding-bottom: 0.25rem;
+}}
+
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 .st-emotion-cache-16tyu1 h1 {{
