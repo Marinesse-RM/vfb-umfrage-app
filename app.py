@@ -61,9 +61,18 @@ footer {{ display: none !important; }}
     position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
     top: 20px; /* 20 Pixel Abstand vom oberen Rand */
     right: 20px; /* 20 Pixel Abstand vom rechten Rand */
-    width: 150px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
+    width: 250px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
     height: auto; /* Höhe automatisch anpassen, um Proportionen zu erhalten */
     z-index: 1000; /* Stellt sicher, dass das Logo über anderen Elementen liegt */
+}}
+
+/* --- NEU: Media Query für mobile Darstellung (bis 640px Breite) --- */
+@media screen and (max-width: 640px) {{
+    #app_logo {{
+        width: 100%; /* Kleinere Breite für mobile Geräte */
+        top: 10px;   /* Weniger Abstand vom oberen Rand auf Mobilgeräten */
+        right: 10px; /* Weniger Abstand vom rechten Rand auf Mobilgeräten */
+    }}
 }}
 
 /* --- Für Container --- */
