@@ -56,7 +56,7 @@ footer {{ display: none !important; }}
 [data-testid="stHeader"] {{ visibility: hidden !important; }}
 #GithubIcon {{ display: none !important; }}
 
-/* --- NEU: CSS für das Logo in der oberen rechten Ecke --- */
+/* --- CSS für das Logo in der oberen rechten Ecke --- */
 #app_logo {{ /* Selektor für das Logo-Bild */
     position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
     top: 20px; /* 20 Pixel Abstand vom oberen Rand */
@@ -66,7 +66,7 @@ footer {{ display: none !important; }}
     z-index: 1000; /* Stellt sicher, dass das Logo über anderen Elementen liegt */
 }}
 
-/* --- NEU: Media Query für mobile Darstellung (bis 640px Breite) --- */
+/* --- Media Query für mobile Darstellung (bis 640px Breite) --- */
 @media screen and (max-width: 640px) {{
     #app_logo {{
         width: 50%; /* Kleinere Breite für mobile Geräte */
@@ -81,9 +81,10 @@ footer {{ display: none !important; }}
     padding: 2rem 1rem 10rem;
     max-width: initial;
     min-width: auto;
-    text-color: #3c3c3b;
+    color: #3c3c3b;
     background-color: white;
 }}
+
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 .st-emotion-cache-16tyu1 h1 {{
@@ -96,7 +97,7 @@ footer {{ display: none !important; }}
     #ihr-geschaetztes-versicherungsvolumen {{
       font-size: 24px;
       font-weight: 700;
-      padding: 25% 0px 1rem;
+      padding: 20% 0px 1rem;
     }}
 }}
 
