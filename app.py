@@ -91,7 +91,7 @@ footer {{ display: none !important; }}
 }}
 
 @media screen and (max-width: 640px) {{
-    .st-emotion-cache-16tyu1 h1 {{
+    #ihr-geschaetztes-versicherungsvolumen {{
       font-size: 24px;
       font-weight: 700;
       padding: 25% 0px 1rem;
