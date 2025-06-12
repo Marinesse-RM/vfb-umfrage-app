@@ -81,6 +81,7 @@ footer {{ display: none !important; }}
     padding: 2rem 1rem 10rem;
     max-width: initial;
     min-width: auto;
+    background-color: white;
 }}
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
