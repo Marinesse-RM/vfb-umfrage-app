@@ -101,6 +101,21 @@ footer {{ display: none !important; }}
     }}
 }}
 
+@media screen and (max-width: 640px) {{
+    #vielen-dank-fuer-ihre-teilnahme {{
+      font-size: 24px;
+      font-weight: 700;
+      padding: 20% 0px 1rem;
+    }}
+}}
+
+@media screen and (max-width: 640px) {{
+    #sie-moechten-mehr-erfahren {{
+      font-size: 20px;
+     
+    }}
+}}
+
 /* --- Für allgemeinen Text (falls noch nicht vorhanden) --- */
 .st-emotion-cache-16tyu1 p {{
     color: #3c3c3b;
