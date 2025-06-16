@@ -87,6 +87,10 @@ footer {{ display: none !important; }}
     background-color: white;
 }}
 
+.st-emotion-cache-8atqhb {{
+margin-left: -50px;
+}}
+
 /* -- Für Auto Refresh Darstellung -- */
 .stAlert {{
     margin-right: 40%;
@@ -126,9 +130,6 @@ footer {{ display: none !important; }}
     padding: 1.25rem 0px 1rem;
 }}
 
-h3#umfrage-teilnahme {{
-padding-left: 20px;
-}}
 
 @media screen and (max-width: 640px) {{
     #ihr-geschaetztes-versicherungsvolumen {{
