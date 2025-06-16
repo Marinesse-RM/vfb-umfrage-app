@@ -316,7 +316,7 @@ if st.session_state.page == 'presenter_view':
                 ten_percent_html = f"""
                 <div style="
                     background-image: url('data:image/png;base64,{BACKGROUND_10_PERCENT_IMG_BASE64}');
-                    background-size: 50%;
+                    background-size: 20%;
                     background-position: center;
                     background-repeat: no-repeat;
                     height: 150px;
