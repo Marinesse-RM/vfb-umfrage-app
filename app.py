@@ -107,6 +107,7 @@ footer {{ display: none !important; }}
     font-weight: bold;
     padding-bottom: 0.25rem;
     text-align: center;
+    width: 50%;
 }}
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
