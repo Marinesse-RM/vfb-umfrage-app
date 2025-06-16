@@ -316,7 +316,7 @@ if st.session_state.page == 'presenter_view':
                 ten_percent_html = f"""
                 <div style="
                     background-image: url('data:image/png;base64,{BACKGROUND_10_PERCENT_IMG_BASE64}');
-                    background-size: 20%;
+                    background-size: 30%;
                     background-position: center;
                     background-repeat: no-repeat;
                     height: 450px;
@@ -326,9 +326,8 @@ if st.session_state.page == 'presenter_view':
                     justify-content: center;
                     align-items: center;
                     margin-top: 20px;
-                    color: white;
-                    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-                    text-align: center;
+                    color: #202f58;
+                    text-align: top center;
                     padding: 10px;
                 ">
                     <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
