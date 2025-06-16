@@ -110,7 +110,6 @@ margin-left: 0px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
-    padding-left: 50px;
     text-align: center;
     width: 50%;
 }}
@@ -163,7 +162,7 @@ margin-left: 0px;
 /* --  Button Aktualisierung -- */
 
 button.st-emotion-cache-13lcgu3 {{
-    margin-left: 33px;
+    margin-left: 0px;
 }}
 
 
