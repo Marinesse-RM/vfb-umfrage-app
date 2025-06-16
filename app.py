@@ -114,6 +114,12 @@ margin-left: 0px;
     width: 50%;
 }}
 
+@media screen and (max-width: 640px) {{
+    .st-emotion-cache-1wivap2  {{
+      width: 100%;
+    }}
+}}
+
 .st-emotion-cache-1wivap2 p {{
     font-size: 0px;
     color: #ffffff;
