@@ -101,9 +101,18 @@ footer {{ display: none !important; }}
     padding-bottom: 0.25rem;
 }}
 
-.st-emotion-cache-1wivap2 h1{{
+.st-emotion-cache-1wivap2 {{
     font-size: 60px;
     color: #202f58;
+    font-weight: bold;
+    padding-bottom: 0.25rem;
+    text-align: center;
+    width: 50%;
+}}
+
+.st-emotion-cache-1wivap2 p {{
+    font-size: 0px;
+    color: #ffffff;
     font-weight: bold;
     padding-bottom: 0.25rem;
     text-align: center;
