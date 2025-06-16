@@ -101,7 +101,7 @@ footer {{ display: none !important; }}
     padding-bottom: 0.25rem;
 }}
 
-.st-emotion-cache-1wivap2{{
+.st-emotion-cache-1wivap2 h1{{
     font-size: 60px;
     color: #202f58;
     font-weight: bold;
