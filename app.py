@@ -33,6 +33,7 @@ def get_image_base64(image_path):
         return "" # Leeren String zurückgeben, um Fehler zu vermeiden
 
 # Logo als Base64-String laden
+# Stelle sicher, dass der Pfad zu deinem Logo korrekt ist (z.B. "images/vfb_vam_logo.png")
 LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
 
 # Lade das Hintergrundbild für die 10%-Anzeige als Base64-String
@@ -42,10 +43,12 @@ BACKGROUND_10_PERCENT_IMG_BASE64 = get_image_base64("images/vfb_cash-trans.png")
 st.set_page_config(
     layout="wide",
     page_title="Versicherungsvolumen Umfrage",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded" # Sidebar initial ausklappen (wird durch Logik gesteuert)
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
+# Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus,
+# inklusive spezifischem GitHub-Icon.
 hide_streamlit_ui_and_logo_css = f"""
 <style>
 #MainMenu {{ visibility: hidden !important; }}
@@ -56,21 +59,21 @@ footer {{ display: none !important; }}
 #GithubIcon {{ display: none !important; }}
 
 /* --- CSS für das Logo in der oberen rechten Ecke --- */
-#app_logo {{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 350px;
-    height: auto;
-    z-index: 1000;
+#app_logo {{ /* Selektor für das Logo-Bild */
+    position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
+    top: 20px; /* 20 Pixel Abstand vom oberen Rand */
+    right: 20px; /* 20 Pixel Abstand vom rechten Rand */
+    width: 350px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
+    height: auto; /* Höhe automatisch anpassen, um Proportionen zu erhalten */
+    z-index: 1000; /* Stellt sicher, dass das Logo über anderen Elementen liegt */
 }}
 
 /* --- Media Query für mobile Darstellung (bis 640px Breite) --- */
 @media screen and (max-width: 640px) {{
     #app_logo {{
-        width: 50%;
-        top: 10px;
-        right: 10px;
+        width: 50%; /* Kleinere Breite für mobile Geräte */
+        top: 10px;   /* Weniger Abstand vom oberen Rand auf Mobilgeräten */
+        right: 10px; /* Weniger Abstand vom rechten Rand auf Mobilgeräten */
     }}
 }}
 
@@ -92,6 +95,7 @@ margin-left: 0px;
 .stAlert {{
     margin-right: 40%;
 }}
+<style>
 
 /* -- Summendarstellung -- */
 .st-emotion-cache-p38tq {{
@@ -152,7 +156,7 @@ margin-left: 0px;
 @media screen and (max-width: 640px) {{
     #sie-moechten-mehr-erfahren {{
       font-size: 20px;
-
+     
     }}
 }}
 
@@ -172,33 +176,41 @@ button.st-emotion-cache-13lcgu3 {{
 """
 
 # --- NEU: HTML-Tag für das Logo erstellen ---
+# Dies wird ein<img>-Tag mit der Base64-Daten-URL und der ID "app_logo".
 logo_html_tag = f'<img id="app_logo" src="data:image/png;base64,{LOGO_BASE64}">'
 st.markdown(hide_streamlit_ui_and_logo_css + logo_html_tag, unsafe_allow_html=True)
 
 
 # --- Initialisierung der Datenbank ---
-create_db_tables()
+create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
 
 # --- Passwort für den Admin-Bereich ---
+# WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
 ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
 
 
 # --- Session State Initialisierung ---
+# Diese Variablen werden nur einmalig gesetzt, wenn die Streamlit-Session startet.
 if 'page' not in st.session_state:
-    st.session_state.page = 'presenter_view'
+    st.session_state.page = 'presenter_view' # Standardansicht beim allerersten Start
 
 if 'last_survey_entry_id' not in st.session_state:
-    st.session_state.last_survey_entry_id = None
+    st.session_state.last_survey_entry_id = None # Für die Verknüpfung von Volumen und Kontaktdaten
 
-if 'logged_in_admin' not in st.session_state:
-    st.session_state.logged_in_admin = False
+if 'logged_in_admin' not in st.session_state: # Korrigiert von 'logged_in_as_admin' zu 'logged_in_admin'
+    st.session_state.logged_in_admin = False # Anmeldestatus des Admin
 
 # --- Query Parameters aus der URL lesen ---
+# Dies muss hier stehen, bevor die Routing-Logik darauf zugreift.
 query_params = st.query_params
 
 # --- Seiten-Routing-Logik basierend auf Query Parameters und Session State ---
+# Diese Logik bestimmt, welche Seite initial angezeigt wird oder nach einem Rerun
+# aufgrund von Query-Parametern umgeschaltet wird.
+
+# Priorität 1: Öffentliche "view" Seiten (survey_form, thank_you, thank_you_with_contact_option)
 if "view" in query_params:
-    st.session_state.logged_in_admin = False
+    st.session_state.logged_in_admin = False # Absicherung: Immer abmelden, wenn über öffentlichen Link gekommen
 
     if query_params["view"] == "survey_form":
         st.session_state.page = "survey_form"
@@ -222,12 +234,18 @@ if "view" in query_params:
             except ValueError:
                 st.session_state.last_survey_entry_id = None
 
+# Priorität 2: Admin-Login über "?admin" URL-Parameter
 elif "admin" in query_params and not st.session_state.logged_in_admin:
     st.session_state.page = 'admin_login'
 
-elif st.session_state.page in ["survey_form", "thank_you_with_contact_option", "thank_you", "admin_login"]:
-    pass
+# NEU: Guard-Clause, der sicherstellt, dass die Seite nicht unnötig gewechselt wird,
+# wenn sie bereits auf einer der Umfrage-, Dankes- ODER Admin-Login-Seiten ist.
+elif st.session_state.page in ["survey_form", "thank_you_with_contact_option", "thank_you", "admin_login"]: # <-- HIER 'admin_login' HINZUFÜGEN
+    pass # Bleibe auf der aktuellen Seite
 
+# Priorität 3 (oder 4): Standardansicht, wenn keine der oberen Bedingungen zutrifft.
+# Jetzt wird dieser Block nur erreicht, wenn keine spezifische view oder admin Query
+# aktiv ist UND wir NICHT bereits auf einer der explizit genannten Seiten sind.
 elif not st.session_state.logged_in_admin:
     st.session_state.page = 'presenter_view'
 
@@ -250,11 +268,14 @@ def generate_qr_code_base64(url):
 
 
 # --- Sidebar für die Navigation ---
+# Die Sidebar wird nur angezeigt, wenn der Benutzer NICHT auf einer öffentlichen Seite ist
+# UND entweder eingeloggt ist oder sich auf der Presenter View / Admin Login befindet.
 if st.session_state.logged_in_admin or \
-   st.session_state.page in ['presenter_view', 'admin_login']:
+   st.session_state.page in ['presenter_view', 'admin_login']: # Nur auf diesen Seiten Sidebar anzeigen
     with st.sidebar:
         st.header("Navigation")
 
+        # Nur für angemeldete Admins: Volle Navigation und Abmelden
         if st.session_state.logged_in_admin:
             if st.button("Für Präsentation (Live-Summe)", key="nav_presenter"):
                 st.session_state.page = 'presenter_view'
@@ -264,17 +285,19 @@ if st.session_state.logged_in_admin or \
                 st.rerun()
             st.button("Abmelden", key="nav_logout", on_click=lambda: st.session_state.update(logged_in_admin=False, page='presenter_view'))
             st.markdown("---")
+        # Für nicht angemeldete Benutzer auf Presenter View oder Admin Login: Nur Login-Option
         elif st.session_state.page == 'presenter_view':
             if st.button("Als Administrator anmelden", key="nav_login_from_presenter"):
                 st.session_state.page = 'admin_login'
                 st.rerun()
-                st.stop()
+                st.stop() # <-- Füge diese Zeile hinzu
 
         st.caption("Umfrage Link für QR Code:")
         survey_url_base = f"https://vfb-cashback.streamlit.app/?view=survey_form"
         st.code(survey_url_base)
         st.markdown("**(Bitte URL an deine Hosting-Umgebung anpassen!)**")
 else:
+    # Für öffentliche Seiten (survey_form, thank_you_with_contact_option, thank_you) wird die Sidebar komplett unterdrückt
     pass
 
 
@@ -288,86 +311,77 @@ if st.session_state.page == 'presenter_view':
     col1, col2 = st.columns([1, 2]) # Eine Spalte für QR, eine für Summe
 
     with col1:
-        st.subheader("Umfrage-Teilnahme")
+        st.subheader("Umfrage-Teilnahme") # Dieser Subheader gehört zur Spalte 1 (QR-Code)
+        # Generiere QR-Code für die Umfrage-URL
         qr_img_data = generate_qr_code_base64(survey_url_base)
         st.image(f"data:image/png;base64,{qr_img_data}", caption="")
         st.markdown(f"Alternativ: [Direkt zum Formular]({survey_url_base})")
 
-    with col2:
-        st.subheader("Live-Summe des geschätzten Versicherungsvolumens")
+    with col2: # ALLES, WAS DIE SUMMEN ANZEIGT, GEHÖRT HIERHER!
+        st.subheader("Live-Summe des geschätzten Versicherungsvolumens") # Dieser Subheader gehört zur Spalte 2
+        # HIER MÜSSEN DIE DEFINITIONEN DER PLATZHALTER SEIN:
+        # Placeholder für die Live-Summe
         total_sum_placeholder = st.empty()
-        ten_percent_sum_placeholder = st.empty() # Placeholder for the 10% sum
+        # Placeholder für die 10%-Summe
+        ten_percent_sum_placeholder = st.empty()
 
-        # NEU: Funktion zur Anzeige des 10%-Cashback-Wertes
-        # Diese Funktion wird auf Button-Klick aufgerufen
-        def display_10_percent_cashback(current_total_value):
-            percentage_sum = current_total_value * 0.10
-            formatted_percentage_sum = locale.format_string("%.2f", percentage_sum, True)
-
-            ten_percent_html = f"""
-            <div style="
-                background-image: url('data:image/png;base64,{BACKGROUND_10_PERCENT_IMG_BASE64}');
-                background-size: 250px;
-                background-position: center;
-                background-repeat: no-repeat;
-                height: 450px;
-                width: 50%;
-                display: flex;
-                flex-direction: column;
-                justify-content: top center;
-                align-items: center;
-                margin-top: 20px;
-                color: #202f58;
-                text-align: top center;
-                padding: 10px;
-            ">
-                <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
-                    Davon 10% VfB Cashback Wert:
-                </span>
-                <span style="font-size: 3em; font-weight: bold;">
-                    {formatted_percentage_sum} €
-                </span>
-            </div>
-            """
-            ten_percent_sum_placeholder.markdown(ten_percent_html, unsafe_allow_html=True)
-
-
-        # Funktion zur Aktualisierung der Gesamt-Summen-Anzeige (ohne 10%)
+        # Erst JETZT kommt die Definition deiner Funktion (immer noch innerhalb von 'with col2:')
         def update_total_sum_display():
             db_session = next(get_db())
             try:
                 current_total = get_current_total_sum(db_session)
+                # Formatiere die Live-Summe
                 formatted_total = locale.format_string("%.2f", current_total, True)
                 total_sum_placeholder.metric(
                     label="Aktuelles geschätztes Volumen",
                     value=f"{formatted_total} €",
-                    delta_color="off"
+                    delta_color="off" # Keine Delta-Anzeige
                 )
-                # Die 10%-Anzeige wird HIER NICHT MEHR aktualisiert.
-                # ten_percent_sum_placeholder.markdown(...) <-- DIESE ZEILE WURDE ENTFERNT
+                # NEU: 10% der Summe berechnen und formatieren
+                percentage_sum = current_total * 0.10
+                formatted_percentage_sum = locale.format_string("%.2f", percentage_sum, True)
+
+                # NEU: HTML für die 10%-Anzeige mit Hintergrundbild
+                ten_percent_html = f"""
+                <div style="
+                    background-image: url('data:image/png;base64,{BACKGROUND_10_PERCENT_IMG_BASE64}');
+                    background-size: 250px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 450px;
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: top center;
+                    align-items: center;
+                    margin-top: 20px;
+                    color: #202f58;
+                    text-align: top center;
+                    padding: 10px;
+                ">
+                    <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
+                        Davon 10% VfB Cashback Wert:
+                    </span>
+                    <span style="font-size: 3em; font-weight: bold;">
+                        {formatted_percentage_sum} €
+                    </span>
+                </div>
+                """
+                ten_percent_sum_placeholder.markdown(ten_percent_html, unsafe_allow_html=True)
+
             finally:
                 db_session.close()
 
-        update_total_sum_display() # Erste Anzeige der GESAMTSUMME beim Laden der Seite
+        update_total_sum_display() # Erste Anzeige beim Laden
 
-        st.info("Die Gesamtsumme wird automatisch alle 10 Sekunden aktualisiert.")
+        st.info("Die Summe wird automatisch alle 10 Sekunden aktualisiert.")
+        # Manueller Aktualisieren-Button kann als Fallback oder für sofortige Updates bleiben
+        if st.button("Summe sofort aktualisieren", key="refresh_sum_manual"):
+            update_total_sum_display() # Aktualisiert die Summe sofort
+            st.success("Summe aktualisiert!")
 
-        # Button für die 10%-Anzeige
-        if st.button("10% VfB Cashback Wert anzeigen/aktualisieren", key="show_cashback_button"):
-            db_session = next(get_db())
-            try:
-                # Hole die aktuelle Gesamtsumme, um den 10%-Wert zu berechnen
-                current_total_for_cashback = get_current_total_sum(db_session)
-                display_10_percent_cashback(current_total_for_cashback)
-            finally:
-                db_session.close()
-
-        # Manueller Aktualisieren-Button für die Gesamtsumme (kann bleiben)
-        if st.button("Gesamtsumme sofort aktualisieren", key="refresh_sum_manual"):
-            update_total_sum_display() # Aktualisiert die Gesamtsumme sofort
-            st.success("Gesamtsumme aktualisiert!")
-
-        # Auto-Refresh nur für die GESAMTSUMME
+        # NEU: Auto-Refresh aktivieren
+        # Aktualisiert alle 10 Sekunden (10000 Millisekunden)
         st_autorefresh(interval=10 * 1000, key="total_sum_auto_refresh")
 
 
