@@ -37,7 +37,7 @@ def get_image_base64(image_path):
 LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
 
 # Lade das Hintergrundbild für die 10%-Anzeige als Base64-String
-BACKGROUND_10_PERCENT_IMG_BASE64 = get_image_base64("images/vfb_cash.png")
+BACKGROUND_10_PERCENT_IMG_BASE64 = get_image_base64("images/vfb_cash-trans.png")
 
 # --- Streamlit App Konfiguration ---
 st.set_page_config(
