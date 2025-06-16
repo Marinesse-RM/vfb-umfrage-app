@@ -312,7 +312,7 @@ if st.session_state.page == 'presenter_view':
         st.markdown(f"Alternativ: [Direkt zum Formular]({survey_url_base})")
 
     with col2: # ALLES, WAS DIE SUMMEN ANZEIGT, GEHÖRT HIERHER!
-        st.subheader("Live-Summe des Versicherungsvolumens") # Dieser Subheader gehört zur Spalte 2
+        st.subheader("Live-Summe des geschätzten Versicherungsvolumens") # Dieser Subheader gehört zur Spalte 2
         # HIER MÜSSEN DIE DEFINITIONEN DER PLATZHALTER SEIN:
         # Placeholder für die Live-Summe
         total_sum_placeholder = st.empty()
