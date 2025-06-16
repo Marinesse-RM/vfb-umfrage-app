@@ -360,16 +360,16 @@ if st.session_state.page == 'presenter_view':
                     width: 100%; /* Breite des Expanders füllen */
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
+                    justify-content: top center;
                     align-items: center;
                     margin-top: 20px;
                     color: #202f58;
-                    text-align: center;
+                    text-align: top center;
                     padding: 10px;
                 ">
                     <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
                         Davon 10% VfB Cashback Wert:
-                    </span>
+                    </span><br>
                     <span style="font-size: 3em; font-weight: bold;">
                         {formatted_percentage_sum} €
                     </span>
