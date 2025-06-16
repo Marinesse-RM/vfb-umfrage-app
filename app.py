@@ -325,9 +325,7 @@ if st.session_state.page == 'presenter_view':
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    border-radius: 15px;
                     margin-top: 20px;
-                    box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
                     color: white;
                     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
                     text-align: center;
