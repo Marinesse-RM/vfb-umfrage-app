@@ -106,6 +106,7 @@ footer {{ display: none !important; }}
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
+    text-align: center;
 }}
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
