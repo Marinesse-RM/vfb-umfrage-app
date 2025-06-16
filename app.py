@@ -88,7 +88,7 @@ footer {{ display: none !important; }}
 }}
 
 .st-emotion-cache-8atqhb {{
-margin-left: -35px;
+margin-left: 0px;
 }}
 
 /* -- Für Auto Refresh Darstellung -- */
