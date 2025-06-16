@@ -159,6 +159,13 @@ margin-left: -35px;
     color: #3c3c3b;
 }}
 
+/* --  Button Aktualisierung -- */
+
+button.st-emotion-cache-13lcgu3 {{
+    margin-left: 33px;
+}}
+
+
 </style>
 """
 
