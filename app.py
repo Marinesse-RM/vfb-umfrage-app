@@ -319,8 +319,8 @@ if st.session_state.page == 'presenter_view':
                     background-size: 20%;
                     background-position: center;
                     background-repeat: no-repeat;
-                    height: 150px;
-                    width: 100%;
+                    height: 450px;
+                    width: 50%;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
