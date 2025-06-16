@@ -81,7 +81,7 @@ footer {{ display: none !important; }}
 .st-emotion-cache-zy6yx3 {{
     width: 100%;
     padding: 2rem 1rem 10rem;
-    max-width: initial;
+    max-width: 1680px;
     min-width: auto;
     color: #3c3c3b;
     background-color: white;
