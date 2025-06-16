@@ -126,6 +126,10 @@ footer {{ display: none !important; }}
     padding: 1.25rem 0px 1rem;
 }}
 
+h3#umfrage-teilnahme {{
+padding-left: 20px;
+}}
+
 @media screen and (max-width: 640px) {{
     #ihr-geschaetztes-versicherungsvolumen {{
       font-size: 24px;
