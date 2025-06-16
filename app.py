@@ -120,6 +120,14 @@ margin-left: 0px;
     }}
 }}
 
+/*  -- 10% Bereich -- */
+
+.stExpander.st-emotion-cache-0.e1kosxz20 {{
+    text-align: center;
+}}
+
+
+
 .st-emotion-cache-1wivap2 p {{
     font-size: 0px;
     color: #ffffff;
