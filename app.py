@@ -364,7 +364,7 @@ if st.session_state.page == 'presenter_view':
                     align-items: center;
                     margin-top: 20px;
                     color: #202f58;
-                    text-align: top center;
+                    text-align: center;
                     padding: 10px;
                 ">
                     <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
