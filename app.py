@@ -124,6 +124,7 @@ margin-left: 0px;
 
 .stExpander.st-emotion-cache-0.e1kosxz20 {{
     text-align: center;
+    width: 50%;
 }}
 
 
