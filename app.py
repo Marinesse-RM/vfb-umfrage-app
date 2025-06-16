@@ -354,7 +354,7 @@ if st.session_state.page == 'presenter_view':
                     padding: 10px;
                 ">
                     <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
-                        Davon 10% geschätzter Cashback Wert:
+                        Davon 10% VfB Cashback Wert:
                     </span>
                     <span style="font-size: 3em; font-weight: bold;">
                         {formatted_percentage_sum} €
