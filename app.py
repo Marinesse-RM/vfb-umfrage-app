@@ -360,7 +360,7 @@ if st.session_state.page == 'presenter_view':
                     width: 100%; /* Breite des Expanders füllen */
                     display: flex;
                     flex-direction: column;
-                    justify-content: top center;
+                    justify-content: center;
                     align-items: center;
                     margin-top: 20px;
                     color: #202f58;
