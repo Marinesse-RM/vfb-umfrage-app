@@ -280,10 +280,7 @@ else:
 
 # --- Seiten-Rendering-Logik ---
 
----
-## Presenter View (für die Präsentation)
----
-```python
+# --- Presenter View (für die Präsentation) ---
 if st.session_state.page == 'presenter_view':
     st.title("📊 LIVE RECHENBEISPIEL - VfB CASHBACK AKTION ")
     st.write("")
