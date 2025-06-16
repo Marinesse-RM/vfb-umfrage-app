@@ -323,7 +323,7 @@ if st.session_state.page == 'presenter_view':
                     width: 50%;
                     display: flex;
                     flex-direction: column;
-                    justify-content: center;
+                    justify-content: top center;
                     align-items: center;
                     margin-top: 20px;
                     color: #202f58;
