@@ -296,7 +296,7 @@ if st.session_state.page == 'presenter_view':
         st.subheader("Umfrage-Teilnahme") # Dieser Subheader gehört zur Spalte 1 (QR-Code)
         # Generiere QR-Code für die Umfrage-URL
         qr_img_data = generate_qr_code_base64(survey_url_base)
-        st.image(f"data:image/png;base64,{qr_img_data}", caption="[Image of QR Code]")
+        st.image(f"data:image/png;base64,{qr_img_data}", caption="")
         st.markdown(f"Alternativ: [Direkt zum Formular]({survey_url_base})")
 
     with col2: # ALLES, WAS DIE SUMMEN ANZEIGT, GEHÖRT HIERHER!
