@@ -120,7 +120,7 @@ margin-left: 0px;
 }}
 
 .st-emotion-cache-1wivap2 {{
-    font-size: 80px;
+    font-size: 85px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
