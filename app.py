@@ -125,7 +125,7 @@ margin-left: 0px;
     font-weight: bold;
     padding-bottom: 0.25rem;
     text-align: center;
-    width: 50%;
+    width: 60%;
 }}
 
 @media screen and (max-width: 640px) {{
