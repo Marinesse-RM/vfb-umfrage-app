@@ -120,7 +120,7 @@ margin-left: 0px;
 }}
 
 .st-emotion-cache-1wivap2 {{
-    font-size: 85px;
+    font-size: 90px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
@@ -390,10 +390,10 @@ if st.session_state.page == 'presenter_view':
                     text-align: top center;
                     padding: 10px;
                 ">
-                    <span style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px; text-align: center; color: #202f58;">
+                    <span style="font-size: 30px; font-weight: bold; margin-bottom: 5px; text-align: center; color: #202f58;">
                         Davon 10% VfB Cashback Wert:
                     </span><br>
-                    <span style="font-size: 3em; font-weight: bold; text-align: center; color: #202f58;">
+                    <span style="font-size: 70px; font-weight: bold; text-align: center; color: #202f58;">
                         {formatted_percentage_sum} €
                     </span>
                 </div>
