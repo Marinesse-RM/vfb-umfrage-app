@@ -61,7 +61,7 @@ footer {{ display: none !important; }}
 /* --- CSS für das Logo in der oberen rechten Ecke --- */
 #app_logo {{ /* Selektor für das Logo-Bild */
     position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
-    top: 20px; /* 20 Pixel Abstand vom oberen Rand */
+    top: 10px; /* 10 Pixel Abstand vom oberen Rand */
     right: 20px; /* 20 Pixel Abstand vom rechten Rand */
     width: 450px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
     height: auto; /* Höhe automatisch anpassen, um Proportionen zu erhalten */
