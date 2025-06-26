@@ -326,7 +326,7 @@ else:
 
 # --- Presenter View (für die Präsentation) ---
 if st.session_state.page == 'presenter_view':
-    st.title("📊 LIVE RECHENBEISPIEL - VfB CASHBACK AKTION ")
+    st.title("📊 LIVE RECHENBEISPIEL ")
     st.write("")
 
     col1, col2 = st.columns([1, 2]) # Eine Spalte für QR, eine für Summe
