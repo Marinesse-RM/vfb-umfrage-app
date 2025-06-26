@@ -141,8 +141,6 @@ margin-left: 0px;
     width: 60%;
 }}
 
-
-
 .st-emotion-cache-1wivap2 p {{
     font-size: 0px;
     color: #ffffff;
@@ -154,7 +152,7 @@ margin-left: 0px;
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 .st-emotion-cache-16tyu1 h1 {{
-    font-size: 30px;
+    font-size: 50px;
     font-weight: 700;
     padding: 1.25rem 0px 1rem;
 }}
