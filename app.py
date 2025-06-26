@@ -7,9 +7,11 @@ from database import create_db_tables, get_db, add_survey_entry, update_survey_e
                      get_current_total_sum, update_total_sum, reset_total_sum, \
                      get_all_contact_entries, get_all_volume_entries
 from streamlit_autorefresh import st_autorefresh
-import locale # NEU: Diesen Import hinzufügen!
+import locale # Behalten wir für den Fall, dass andere locale-Funktionen genutzt werden, aber für Formatierung nutzen wir unsere eigene.
 
 # --- NEUER BLOCK: Locale für europäische Zahlenformatierung setzen ---
+# Dieser Block ist weiterhin wichtig für andere potenzielle locale-abhängige Funktionen.
+# Aber für die Haupt-Zahlenformatierung nutzen wir jetzt unsere eigene Funktion.
 try:
     locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8')
 except locale.Error:
@@ -19,8 +21,33 @@ except locale.Error:
         try:
             locale.setlocale(locale.LC_ALL, 'German_Germany.1252')
         except locale.Error:
-            pass # Konnte keine deutsche Locale einstellen. Zahlenformatierung könnte abweichen.
-# --- ENDE NEUER BLOCK ---
+            pass # Konnte keine deutsche Locale einstellen.
+
+# --- NEU: Benutzerdefinierte Funktion für deutsche Zahlenformatierung ---
+def format_german_currency(value):
+    """
+    Formatiert einen Float-Wert als deutschen Währungsstring (z.B. 1.234.567,89).
+    Stellt sicher, dass das Komma als Dezimaltrennzeichen und der Punkt als Tausender-Trennzeichen verwendet wird.
+    """
+    if value is None:
+        return "N/A"
+    
+    # Zuerst als String mit zwei Nachkommastellen formatieren (Standardpunkt als Dezimaltrennzeichen)
+    temp_str = f"{float(value):.2f}"
+    
+    # Teile in Ganzzahl- und Dezimalteil auf
+    parts = temp_str.split('.')
+    integer_part = parts[0]
+    decimal_part = parts[1]
+
+    # Tausender-Trennzeichen zum Ganzzahlteil hinzufügen
+    # Nutzt String-Formatierung mit Unterstrich als Trennzeichen, dann Ersetzung durch Punkt
+    formatted_integer_part = f"{int(integer_part):_}".replace("_", ".")
+
+    # Führt Ganzzahlteil und Dezimalteil mit Komma zusammen
+    return f"{formatted_integer_part},{decimal_part}"
+# --- ENDE NEUE FUNKTION ---
+
 
 # --- Funktion zum Laden von Bildern als Base64 ---
 def get_image_base64(image_path):
@@ -33,7 +60,6 @@ def get_image_base64(image_path):
         return "" # Leeren String zurückgeben, um Fehler zu vermeiden
 
 # Logo als Base64-String laden
-# Stelle sicher, dass der Pfad zu deinem Logo korrekt ist (z.B. "images/vfb_vam_logo.png")
 LOGO_BASE64 = get_image_base64("images/vfb_vam_logo.png")
 
 # Lade das Hintergrundbild für die 10%-Anzeige als Base64-String
@@ -47,8 +73,6 @@ st.set_page_config(
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
-# Blendet ALLE Streamlit UI-Elemente mit maximaler Priorität aus,
-# inklusive spezifischem GitHub-Icon.
 hide_streamlit_ui_and_logo_css = f"""
 <style>
 #MainMenu {{ visibility: hidden !important; }}
@@ -109,7 +133,6 @@ margin-left: 0px;
 .stAlert {{
     margin-right: 40%;
 }}
-<style>
 
 /* -- Summendarstellung -- */
 .st-emotion-cache-p38tq {{
@@ -134,21 +157,21 @@ margin-left: 0px;
     }}
 }}
 
-/*  -- 10% Bereich -- */
-
+/* -- 10% Bereich -- */
 .stExpander.st-emotion-cache-0.e1kosxz20 {{
     text-align: center;
     width: 60%;
 }}
 
-.st-emotion-cache-1wivap2 p {{
+/* Diese Regel scheint nicht mehr nötig zu sein, da der Text jetzt in <div>s ist und richtig angezeigt wird. */
+/* .st-emotion-cache-1wivap2 p {{
     font-size: 0px;
     color: #ffffff;
     font-weight: bold;
     padding-bottom: 0.25rem;
     text-align: center;
     width: 50%;
-}}
+}} */
 
 /* --- ANPASSUNGEN FÜR HEADLINES --- */
 .st-emotion-cache-16tyu1 h1 {{
@@ -156,7 +179,6 @@ margin-left: 0px;
     font-weight: 700;
     padding: 1.25rem 0px 1rem;
 }}
-
 
 @media screen and (max-width: 640px) {{
     #ihr-geschaetztes-versicherungsvolumen {{
@@ -177,7 +199,6 @@ margin-left: 0px;
 @media screen and (max-width: 640px) {{
     #sie-moechten-mehr-erfahren {{
       font-size: 20px;
-     
     }}
 }}
 
@@ -187,17 +208,13 @@ margin-left: 0px;
 }}
 
 /* --  Button Aktualisierung -- */
-
 button.st-emotion-cache-13lcgu3 {{
     margin-left: 0px;
 }}
-
-
 </style>
 """
 
 # --- NEU: HTML-Tag für das Logo erstellen ---
-# Dies wird ein<img>-Tag mit der Base64-Daten-URL und der ID "app_logo".
 logo_html_tag = f'<img id="app_logo" src="data:image/png;base64,{LOGO_BASE64}">'
 st.markdown(hide_streamlit_ui_and_logo_css + logo_html_tag, unsafe_allow_html=True)
 
@@ -206,32 +223,25 @@ st.markdown(hide_streamlit_ui_and_logo_css + logo_html_tag, unsafe_allow_html=Tr
 create_db_tables() # Stellt sicher, dass die Datenbanktabellen existieren
 
 # --- Passwort für den Admin-Bereich ---
-# WICHTIG: ERSETZE DIES DURCH EIN STARKES, GEHEIMES PASSWORT!
 ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"]
 
 
 # --- Session State Initialisierung ---
-# Diese Variablen werden nur einmalig gesetzt, wenn die Streamlit-Session startet.
 if 'page' not in st.session_state:
-    st.session_state.page = 'presenter_view' # Standardansicht beim allerersten Start
+    st.session_state.page = 'presenter_view'
 
 if 'last_survey_entry_id' not in st.session_state:
-    st.session_state.last_survey_entry_id = None # Für die Verknüpfung von Volumen und Kontaktdaten
+    st.session_state.last_survey_entry_id = None
 
-if 'logged_in_admin' not in st.session_state: # Korrigiert von 'logged_in_as_admin' zu 'logged_in_admin'
-    st.session_state.logged_in_admin = False # Anmeldestatus des Admin
+if 'logged_in_admin' not in st.session_state:
+    st.session_state.logged_in_admin = False
 
 # --- Query Parameters aus der URL lesen ---
-# Dies muss hier stehen, bevor die Routing-Logik darauf zugreift.
 query_params = st.query_params
 
 # --- Seiten-Routing-Logik basierend auf Query Parameters und Session State ---
-# Diese Logik bestimmt, welche Seite initial angezeigt wird oder nach einem Rerun
-# aufgrund von Query-Parametern umgeschaltet wird.
-
-# Priorität 1: Öffentliche "view" Seiten (survey_form, thank_you, thank_you_with_contact_option)
 if "view" in query_params:
-    st.session_state.logged_in_admin = False # Absicherung: Immer abmelden, wenn über öffentlichen Link gekommen
+    st.session_state.logged_in_admin = False
 
     if query_params["view"] == "survey_form":
         st.session_state.page = "survey_form"
@@ -255,18 +265,12 @@ if "view" in query_params:
             except ValueError:
                 st.session_state.last_survey_entry_id = None
 
-# Priorität 2: Admin-Login über "?admin" URL-Parameter
 elif "admin" in query_params and not st.session_state.logged_in_admin:
     st.session_state.page = 'admin_login'
 
-# NEU: Guard-Clause, der sicherstellt, dass die Seite nicht unnötig gewechselt wird,
-# wenn sie bereits auf einer der Umfrage-, Dankes- ODER Admin-Login-Seiten ist.
-elif st.session_state.page in ["survey_form", "thank_you_with_contact_option", "thank_you", "admin_login"]: # <-- HIER 'admin_login' HINZUFÜGEN
-    pass # Bleibe auf der aktuellen Seite
+elif st.session_state.page in ["survey_form", "thank_you_with_contact_option", "thank_you", "admin_login"]:
+    pass
 
-# Priorität 3 (oder 4): Standardansicht, wenn keine der oberen Bedingungen zutrifft.
-# Jetzt wird dieser Block nur erreicht, wenn keine spezifische view oder admin Query
-# aktiv ist UND wir NICHT bereits auf einer der explizit genannten Seiten sind.
 elif not st.session_state.logged_in_admin:
     st.session_state.page = 'presenter_view'
 
@@ -289,14 +293,11 @@ def generate_qr_code_base64(url):
 
 
 # --- Sidebar für die Navigation ---
-# Die Sidebar wird nur angezeigt, wenn der Benutzer NICHT auf einer öffentlichen Seite ist
-# UND entweder eingeloggt ist oder sich auf der Presenter View / Admin Login befindet.
 if st.session_state.logged_in_admin or \
-   st.session_state.page in ['presenter_view', 'admin_login']: # Nur auf diesen Seiten Sidebar anzeigen
+   st.session_state.page in ['presenter_view', 'admin_login']:
     with st.sidebar:
         st.header("Navigation")
 
-        # Nur für angemeldete Admins: Volle Navigation und Abmelden
         if st.session_state.logged_in_admin:
             if st.button("Für Präsentation (Live-Summe)", key="nav_presenter"):
                 st.session_state.page = 'presenter_view'
@@ -306,19 +307,17 @@ if st.session_state.logged_in_admin or \
                 st.rerun()
             st.button("Abmelden", key="nav_logout", on_click=lambda: st.session_state.update(logged_in_admin=False, page='presenter_view'))
             st.markdown("---")
-        # Für nicht angemeldete Benutzer auf Presenter View oder Admin Login: Nur Login-Option
         elif st.session_state.page == 'presenter_view':
             if st.button("Als Administrator anmelden", key="nav_login_from_presenter"):
                 st.session_state.page = 'admin_login'
                 st.rerun()
-                st.stop() # <-- Füge diese Zeile hinzu
+                st.stop()
 
         st.caption("Umfrage Link für QR Code:")
         survey_url_base = f"https://vfb-cashback.streamlit.app/?view=survey_form"
         st.code(survey_url_base)
         st.markdown("**(Bitte URL an deine Hosting-Umgebung anpassen!)**")
 else:
-    # Für öffentliche Seiten (survey_form, thank_you_with_contact_option, thank_you) wird die Sidebar komplett unterdrückt
     pass
 
 
@@ -340,15 +339,14 @@ if st.session_state.page == 'presenter_view':
     with col2:
         st.subheader("Live-Summe des geschätzten Versicherungsvolumens")
         total_sum_placeholder = st.empty()
-        # ten_percent_sum_placeholder wird NICHT mehr hier definiert,
-        # da es IM Expander leben wird.
-
+        
         # Funktion zur Aktualisierung der Gesamt-Summen-Anzeige
         def update_total_sum_display():
             db_session = next(get_db())
             try:
                 current_total = get_current_total_sum(db_session)
-                formatted_total = locale.format_string("%.2f", current_total, True)
+                # NEU: Formatierung mit der benutzerdefinierten Funktion
+                formatted_total = format_german_currency(current_total)
                 total_sum_placeholder.metric(
                     label="Aktuelles geschätztes Volumen",
                     value=f"{formatted_total} €",
@@ -363,12 +361,12 @@ if st.session_state.page == 'presenter_view':
 
         # NEU: Expander für den 10%-Cashback-Wert
         with st.expander("10% VfB Cashback Wert anzeigen", expanded=False):
-            # Der Inhalt des Expanders wird nur gerendert/ausgeführt, wenn er geöffnet ist
             db_session = next(get_db())
             try:
                 current_total = get_current_total_sum(db_session) # Hole die aktuelle Summe
                 percentage_sum = current_total * 0.10
-                formatted_percentage_sum = locale.format_string("%.2f", percentage_sum, True)
+                # NEU: Formatierung mit der benutzerdefinierten Funktion
+                formatted_percentage_sum = format_german_currency(percentage_sum)
 
                 # HTML für die 10%-Anzeige mit Hintergrundbild
                 ten_percent_html = f"""
@@ -385,15 +383,15 @@ if st.session_state.page == 'presenter_view':
                     align-items: center;
                     margin-top: 20px;
                     color: #202f58;
-                    text-align: top center;
+                    text-align: center; /* Hier muss es 'center' sein für die Gesamtbox */
                     padding: 10px;
                 ">
-                    <span style="font-size: 30px; font-weight: bold; margin-bottom: 5px; text-align: center; color: #202f58;">
+                    <div style="font-size: 30px; font-weight: bold; margin-bottom: 5px; color: #202f58;">
                         Davon 10% VfB Cashback Wert:
-                    </span><br>
-                    <span style="font-size: 70px; font-weight: bold; text-align: center; color: #202f58;">
+                    </div>
+                    <div style="font-size: 70px; font-weight: bold; color: #202f58;">
                         {formatted_percentage_sum} €
-                    </span>
+                    </div>
                 </div>
                 """
                 st.markdown(ten_percent_html, unsafe_allow_html=True)
@@ -407,6 +405,7 @@ if st.session_state.page == 'presenter_view':
 
         # Auto-Refresh nur für die GESAMTSUMME
         st_autorefresh(interval=10 * 1000, key="total_sum_auto_refresh")
+
 
 # --- Public Survey Form (für den Nutzer nach dem QR-Scan) ---
 elif st.session_state.page == 'survey_form':
@@ -429,20 +428,18 @@ elif st.session_state.page == 'survey_form':
             db_session = next(get_db())
             try:
                 entry_id = add_survey_entry(db_session, volume_input)
-                # Hier brauchen wir st.session_state.last_survey_entry_id nicht mehr unbedingt sofort,
-                # da wir die ID direkt per URL weitergeben. Könnte aber als Fallback nützlich sein.
-                st.session_state.last_survey_entry_id = entry_id 
+                st.session_state.last_survey_entry_id = entry_id
 
                 # --- WICHTIG: Direkter HTML-Redirect ---
                 st.success("Ihr Betrag wurde erfolgreich erfasst! Sie werden weitergeleitet...")
-                
+
                 # Basis-URL (anpassen, wenn gehostet!)
-                base_url = "https://vfb-cashback.streamlit.app/" 
+                base_url = "https://vfb-cashback.streamlit.app/"
                 redirect_url = f"{base_url}/?view=thank_you_with_contact_option&entry_id={entry_id}"
-                
+
                 # Dies ist der entscheidende Befehl: Erzwingt einen Browser-Redirect
                 st.markdown(f'<meta http-equiv="refresh" content="0;url={redirect_url}">', unsafe_allow_html=True)
-                
+
                 # Wichtig: Beende die Skriptausführung hier, da der Browser sowieso neu lädt.
                 st.stop() # NEU: Dies stoppt die Streamlit-Ausführung elegant.
 
@@ -479,12 +476,8 @@ elif st.session_state.page == 'thank_you_with_contact_option':
             contact_name = st.text_input("Ansprechpartner*in", key="contact_name_new_page")
             contact_company = st.text_input("Firmenname", key="contact_company_new_page")
             contact_email = st.text_input("E-Mail", key="contact_email_new_page")
-            
-            # col_contact_submit, col_skip = st.columns(2) # Diese Zeile entfällt, da nur noch ein Button
-            # with col_contact_submit: # Entfällt auch
-            contact_submit_button = st.form_submit_button("Kontaktdaten senden") # Nur noch dieser Button
-            # with col_skip: # Entfällt
-            #    skip_contact_button = st.form_submit_button("Nein danke, einfach zur Übersicht") # DIESER BUTTON ENTFÄLLT KOMPLETT
+
+            contact_submit_button = st.form_submit_button("Kontaktdaten senden")
 
             if contact_submit_button:
                 db_session = next(get_db())
@@ -498,7 +491,7 @@ elif st.session_state.page == 'thank_you_with_contact_option':
                     )
                     st.success("Ihre Kontaktdaten wurden erfasst. Vielen Dank!")
                     st.session_state.last_survey_entry_id = None # ID löschen
-                    
+
                     # --- WICHTIG: Direkter HTML-Redirect zur finalen Danke-Seite ---
                     base_url = "https://vfb-cashback.streamlit.app" # ANPASSEN, WENN GEHOSTET!
                     redirect_url = f"{base_url}/?view=thank_you" # Weiterleitung zur finalen Danke-Seite
@@ -510,11 +503,6 @@ elif st.session_state.page == 'thank_you_with_contact_option':
                     st.error(f"Fehler beim Speichern der Kontaktdaten: {e}")
                 finally:
                     db_session.close()
-            # Der elif skip_contact_button: Block entfällt komplett
-            # elif skip_contact_button:
-            #     st.session_state.last_survey_entry_id = None
-            #     st.session_state.page = 'thank_you'
-            #     st.rerun()
 
     else:
         # Falls man aus irgendeinem Grund hier landet ohne last_survey_entry_id
@@ -577,12 +565,14 @@ elif st.session_state.page == 'admin_view':
             if contact_entries:
                 data = []
                 for entry in contact_entries:
+                    # NEU: Volumen hier formatieren
+                    formatted_volume = format_german_currency(entry.volume) if entry.volume else "N/A"
                     data.append({
                         "ID": entry.id,
                         "Name": entry.contact_name,
                         "Firma": entry.contact_company,
                         "E-Mail": entry.contact_email,
-                        "Volumen (verknüpft)": f"{entry.volume:,.2f} €" if entry.volume else "N/A",
+                        "Volumen (verknüpft)": f"{formatted_volume} €", # Angepasster Wert
                         "Zeitpunkt": entry.timestamp.strftime("%d.%m.%Y %H:%M:%S")
                     })
                 df_contacts = pd.DataFrame(data)
@@ -609,9 +599,11 @@ elif st.session_state.page == 'admin_view':
             if all_volume_entries:
                 data_all = []
                 for entry in all_volume_entries:
+                    # NEU: Volumen hier formatieren
+                    formatted_volume_all = format_german_currency(entry.volume)
                     data_all.append({
                         "ID": entry.id,
-                        "Volumen (€)": f"{entry.volume:,.2f}",
+                        "Volumen (€)": f"{formatted_volume_all}", # Angepasster Wert
                         "Name": entry.contact_name if entry.contact_name else "-",
                         "Firma": entry.contact_company if entry.contact_company else "-",
                         "E-Mail": entry.contact_email if entry.contact_email else "-",
