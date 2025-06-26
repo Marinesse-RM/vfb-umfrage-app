@@ -63,7 +63,7 @@ footer {{ display: none !important; }}
     position: absolute; /* Absolute Positionierung relativ zum nächsten positionierten Elternelement (oft body) */
     top: 20px; /* 20 Pixel Abstand vom oberen Rand */
     right: 20px; /* 20 Pixel Abstand vom rechten Rand */
-    width: 350px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
+    width: 450px; /* Breite des Logos (Passe dies an deine gewünschte Größe an) */
     height: auto; /* Höhe automatisch anpassen, um Proportionen zu erhalten */
     z-index: 1000; /* Stellt sicher, dass das Logo über anderen Elementen liegt */
 }}
@@ -106,7 +106,7 @@ margin-left: 0px;
 }}
 
 .st-emotion-cache-1wivap2 {{
-    font-size: 60px;
+    font-size: 80px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
