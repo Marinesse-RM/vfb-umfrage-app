@@ -136,7 +136,7 @@ margin-left: 0px;
 
 /* -- Summendarstellung -- */
 .st-emotion-cache-p38tq {{
-    font-size: 60px;
+    font-size: 55px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
