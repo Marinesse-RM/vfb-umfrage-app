@@ -410,7 +410,7 @@ if st.session_state.page == 'presenter_view':
 # --- Public Survey Form (für den Nutzer nach dem QR-Scan) ---
 elif st.session_state.page == 'survey_form':
     st.title("💸 Ihr geschätztes Versicherungsvolumen")
-    st.write("Bitte geben Sie Ihren geschätzten Betrag in Euro (€) ein:")
+    st.write("Bitte geben Sie Ihren geschätzten Betrag (€) ein:")
 
     # Formular zum Erfassen des Volumens
     with st.form(key='survey_form'):
