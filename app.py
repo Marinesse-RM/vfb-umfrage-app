@@ -348,7 +348,7 @@ if st.session_state.page == 'presenter_view':
                 # NEU: Formatierung mit der benutzerdefinierten Funktion
                 formatted_total = format_german_currency(current_total)
                 total_sum_placeholder.metric(
-                    label="Aktuelles geschätztes Volumen",
+                    label=" ",
                     value=f"{formatted_total} €",
                     delta_color="off"
                 )
