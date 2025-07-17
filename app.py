@@ -9,7 +9,7 @@ from database import create_db_tables, get_db, add_survey_entry, update_survey_e
 from streamlit_autorefresh import st_autorefresh
 import locale # Behalten wir für den Fall, dass andere locale-Funktionen genutzt werden, aber für Formatierung nutzen wir unsere eigene.
 
-# --- NEUER BLOCK: Alle Zahlen für europäische Zahlenformatierung setzen ---
+# --- NEUER BLOCK: Alle Zahlen in europäische Zahlenformatierung setzen ---
 # Dieser Block ist weiterhin wichtig für andere potenzielle locale-abhängige Funktionen.
 # Aber für die Haupt-Zahlenformatierung nutzen wir jetzt unsere eigene Funktion.
 try:
