@@ -357,8 +357,6 @@ if st.session_state.page == 'presenter_view':
 
         update_total_sum_display() # Erste Anzeige der GESAMTSUMME beim Laden der Seite
 
-        st.info("Die Gesamtsumme wird automatisch alle 10 Sekunden aktualisiert.")
-
         # NEU: Expander für den 10%-Cashback-Wert
         with st.expander("10% VfB Cashback Wert anzeigen", expanded=False):
             db_session = next(get_db())
