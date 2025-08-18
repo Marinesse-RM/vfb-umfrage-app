@@ -358,7 +358,7 @@ if st.session_state.page == 'presenter_view':
         update_total_sum_display() # Erste Anzeige der GESAMTSUMME beim Laden der Seite
 
         # NEU: Expander für den 10%-Cashback-Wert
-        with st.expander("10% VfB Cashback Wert anzeigen", expanded=False):
+        with st.expander("10% Anteil anzeigen", expanded=False):
             db_session = next(get_db())
             try:
                 current_total = get_current_total_sum(db_session) # Hole die aktuelle Summe
@@ -385,7 +385,7 @@ if st.session_state.page == 'presenter_view':
                     padding: 10px;
                 ">
                     <div style="font-size: 30px; font-weight: bold; margin-bottom: 5px; color: #202f58;">
-                        Davon 10% VfB Cashback Wert:
+                        Davon 10% Spende an den VfB:
                     </div>
                     <div style="font-size: 70px; font-weight: bold; color: #202f58;">
                         {formatted_percentage_sum} €
