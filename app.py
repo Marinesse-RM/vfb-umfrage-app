@@ -325,7 +325,7 @@ else:
 
 # --- Presenter View (für die Präsentation) ---
 if st.session_state.page == 'presenter_view':
-    st.title("Das Marinesse-Konzept ")
+    st.title("DAS MARINESSE-KONZEPT ")
     st.write("")
 
     col1, col2 = st.columns([1, 2]) # Eine Spalte für QR, eine für Summe
