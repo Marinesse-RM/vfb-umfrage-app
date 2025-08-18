@@ -325,7 +325,7 @@ else:
 
 # --- Presenter View (für die Präsentation) ---
 if st.session_state.page == 'presenter_view':
-    st.title("📊 LIVE RECHENBEISPIEL ")
+    st.title("Das Marinesse-Konzept ")
     st.write("")
 
     col1, col2 = st.columns([1, 2]) # Eine Spalte für QR, eine für Summe
@@ -337,7 +337,7 @@ if st.session_state.page == 'presenter_view':
         st.markdown(f"Alternativ: [Direkt zum Formular]({survey_url_base})")
 
     with col2:
-        st.subheader("Live-Summe des geschätzten Versicherungsvolumens")
+        st.subheader("📊 Live-Summe des geschätzten Versicherungsvolumens")
         total_sum_placeholder = st.empty()
         
         # Funktion zur Aktualisierung der Gesamt-Summen-Anzeige
