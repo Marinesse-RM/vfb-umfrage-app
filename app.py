@@ -474,6 +474,7 @@ elif st.session_state.page == 'thank_you_with_contact_option':
             contact_name = st.text_input("Ansprechpartner*in", key="contact_name_new_page")
             contact_company = st.text_input("Firmenname", key="contact_company_new_page")
             contact_email = st.text_input("E-Mail", key="contact_email_new_page")
+            contact_phone = st.text_input("Telefonnummer", key="contact_phone_new_page")
 
             contact_submit_button = st.form_submit_button("Kontaktdaten senden")
 
@@ -486,6 +487,8 @@ elif st.session_state.page == 'thank_you_with_contact_option':
                         contact_name if contact_name else None,
                         contact_company if contact_company else None,
                         contact_email if contact_email else None
+                        contact_phone if contact_phone else None
+
                     )
                     st.success("Ihre Kontaktdaten wurden erfasst. Vielen Dank!")
                     st.session_state.last_survey_entry_id = None # ID löschen
