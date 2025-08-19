@@ -19,11 +19,11 @@ class SurveyEntry(Base):
     contact_name = Column(String(255), nullable=True)
     contact_company = Column(String(255), nullable=True)
     contact_email = Column(String(255), nullable=True)
+    # Hinzugefügte Spalte für die Telefonnummer
     contact_phone = Column(String(255), nullable=True)
     timestamp = Column(DateTime, default=datetime.now)
     # Markierung, ob es sich um einen reinen Volumen-Eintrag handelt (ohne Kontakt)
     # oder ob er Kontaktinformationen enthalten könnte.
-    # Hier nicht direkt verwendet, aber nützlich für komplexere Szenarien.
     has_contact_info = Column(Boolean, default=False)
 
 class TotalSum(Base):
@@ -59,19 +59,20 @@ def add_survey_entry(db_session, volume):
     db_session.commit()
     db_session.refresh(db_entry)
 
-# NEU: Das ist der entscheidende Teil!
     # Rufe update_total_sum auf, um das hinzugefügte Volumen zur Gesamtsumme zu addieren
     update_total_sum(db_session, volume)
 
-    # NEU: Gib die ID des neuen Eintrags zurück
-    return db_entry.id # Statt 'return db_entry'
+    # Gib die ID des neuen Eintrags zurück
+    return db_entry.id
     
-def update_survey_entry_with_contact(db_session, entry_id, name, company, email):
+# Angepasste Funktion: phone-Parameter hinzufügen
+def update_survey_entry_with_contact(db_session, entry_id, name, company, email, phone):
     db_entry = db_session.query(SurveyEntry).filter(SurveyEntry.id == entry_id).first()
     if db_entry:
         db_entry.contact_name = name
         db_entry.contact_company = company
         db_entry.contact_email = email
+        db_entry.contact_phone = phone # Hier wird der Wert korrekt zugewiesen
         db_entry.has_contact_info = True # Markieren, dass Kontaktinfos vorhanden sind
         db_session.commit()
         db_session.refresh(db_entry)
