@@ -114,15 +114,15 @@ footer {{ display: none !important; }}
 /* --- Für linke Spalte --- */
 
 .st-emotion-cache-1mwoiw6 {{
-    width: calc(40% - 1rem);
-    flex: 1 1 calc(40% - 1rem);
+    width: calc(45% - 1rem);
+    flex: 1 1 calc(45% - 1rem);
 }}
 
 /* --- Für rechte Spalte --- */
 
 .st-emotion-cache-wt011d {{
-    width: calc(60% - 1rem);
-    flex: 1 1 calc(60% - 1rem);
+    width: calc(55% - 1rem);
+    flex: 1 1 calc(55% - 1rem);
 }}
 
 .st-emotion-cache-8atqhb {{
