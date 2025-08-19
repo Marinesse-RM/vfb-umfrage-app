@@ -147,8 +147,8 @@ margin-left: 0px;
     color: #202f58;
     font-weight: bold;
     padding-bottom: 0.25rem;
-    text-align: center;
-    width: 60%;
+    text-align: left;
+    width: 100%;
 }}
 
 @media screen and (max-width: 640px) {{
