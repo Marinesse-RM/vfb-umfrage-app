@@ -573,6 +573,7 @@ elif st.session_state.page == 'admin_view':
                         "Name": entry.contact_name,
                         "Firma": entry.contact_company,
                         "E-Mail": entry.contact_email,
+                        "Telefonnummer": entry.contact_phone, 
                         "Volumen (verknüpft)": f"{formatted_volume} €", # Angepasster Wert
                         "Zeitpunkt": entry.timestamp.strftime("%d.%m.%Y %H:%M:%S")
                     })
