@@ -69,7 +69,7 @@ BACKGROUND_10_PERCENT_IMG_BASE64 = get_image_base64("images/vfb_cash-trans.png")
 st.set_page_config(
     layout="wide",
     page_title="Versicherungsvolumen Umfrage",
-    initial_sidebar_state="expanded" # Sidebar initial ausklappen (wird durch Logik gesteuert)
+    initial_sidebar_state="collapsed" # Sidebar nicht initial ausklappen (wird durch Logik gesteuert)
 )
 
 # --- CSS zur Anpassung der Streamlit UI ---
