@@ -486,7 +486,7 @@ elif st.session_state.page == 'thank_you_with_contact_option':
                         st.session_state.last_survey_entry_id,
                         contact_name if contact_name else None,
                         contact_company if contact_company else None,
-                        contact_email if contact_email else None
+                        contact_email if contact_email else None,
                         contact_phone if contact_phone else None
 
                     )
