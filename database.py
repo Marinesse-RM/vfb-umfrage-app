@@ -19,7 +19,7 @@ class SurveyEntry(Base):
     contact_name = Column(String(255), nullable=True)
     contact_company = Column(String(255), nullable=True)
     contact_email = Column(String(255), nullable=True)
-    contact_phone = Column(String)
+    contact_phone = Column(String(255), nullable=True)
     timestamp = Column(DateTime, default=datetime.now)
     # Markierung, ob es sich um einen reinen Volumen-Eintrag handelt (ohne Kontakt)
     # oder ob er Kontaktinformationen enthalten könnte.
